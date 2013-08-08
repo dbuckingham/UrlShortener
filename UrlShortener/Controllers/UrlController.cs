@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using Raven.Abstractions.Data;
+using Raven.Client;
 using Raven.Client.Document;
 using Raven.Json.Linq;
 using UrlShortener.Models;
@@ -13,7 +14,7 @@ namespace UrlShortener.Controllers
 {
     public class UrlController : Controller
     {
-        private DocumentStore _documentStore = null;
+        private IDocumentStore _documentStore = null;
 
         public UrlController()
         {

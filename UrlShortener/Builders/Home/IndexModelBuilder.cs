@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
+using Raven.Client;
 using Raven.Client.Document;
 using UrlShortener.Models;
 using UrlShortener.Models.Home;
@@ -11,9 +12,9 @@ namespace UrlShortener.Builders.Home
 {
     public class IndexModelBuilder
     {
-        private DocumentStore _documentStore = null;
+        private IDocumentStore _documentStore = null;
 
-        public IndexModelBuilder(DocumentStore documentStore)
+        public IndexModelBuilder(IDocumentStore documentStore)
         {
             if (documentStore == null) throw new ArgumentNullException("documentStore");
 

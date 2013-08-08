@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Raven.Client;
 using Raven.Client.Document;
 using UrlShortener.Models;
 
@@ -10,7 +11,7 @@ namespace UrlShortener.Controllers
 {
     public class GoController : Controller
     {
-        private DocumentStore _documentStore = null;
+        private IDocumentStore _documentStore = null;
 
         public GoController()
         {
