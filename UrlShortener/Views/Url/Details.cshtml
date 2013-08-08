@@ -1,0 +1,36 @@
+﻿@model UrlShortener.Models.UrlModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>UrlModel</legend>
+
+    <dl>
+        <dt>@Html.DisplayNameFor(model=>model.Key)</dt>
+        <dd>@Html.DisplayFor(model=>model.Key)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Url)</dt>
+        <dd>@Html.DisplayFor(model => model.Url)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.RequestCount)</dt>
+        <dd>@Html.DisplayFor(model => model.RequestCount)</dd>
+        
+        <dt>@Html.DisplayNameFor(model => model.Created)</dt>
+        <dd>@Html.DisplayFor(model => model.Created)</dd>
+        
+        <dt>@Html.DisplayNameFor(model => model.Updated)</dt>
+        <dd>@Html.DisplayFor(model => model.Updated)</dd>
+        
+        <dt>@Html.DisplayNameFor(model => model.LastRequest)</dt>
+            <dd>@Html.DisplayFor(model => model.LastRequest)</dd>
+    </dl>
+</fieldset>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new {id=Model.Id}) | 
+    @Html.ActionLink("Back to List", "Index")
+</p>

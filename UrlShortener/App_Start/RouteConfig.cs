@@ -13,6 +13,8 @@ namespace UrlShortener
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute("Go", "Go/{key}", new { controller = "Go", action = "Index" });
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
