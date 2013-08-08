@@ -14,15 +14,13 @@ namespace UrlShortener.Controllers
 {
     public class UrlController : Controller
     {
-        private IDocumentStore _documentStore = null;
+        private readonly IDocumentStore _documentStore = null;
 
-        public UrlController()
+        public UrlController(IDocumentStore documentStore)
         {
-            // TODO - Inject DocumentStore
+            if (documentStore == null) throw new ArgumentNullException("documentStore");
 
-            _documentStore = new DocumentStore { ConnectionStringName = "localRavenDB" };
-            _documentStore.Initialize();
-            _documentStore.Conventions.IdentityPartsSeparator = "-";
+            _documentStore = documentStore;
         }
 
         //

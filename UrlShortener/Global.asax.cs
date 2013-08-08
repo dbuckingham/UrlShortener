@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using UrlShortener.App_Start;
 
 namespace UrlShortener
 {
@@ -20,6 +21,12 @@ namespace UrlShortener
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            // Register custom controller factory
+            ControllerBuilder.Current.SetControllerFactory(
+                new UrlShortenerControllerFactory()
+                );
         }
+
     }
 }
