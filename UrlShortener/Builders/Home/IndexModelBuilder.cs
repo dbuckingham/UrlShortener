@@ -28,16 +28,22 @@ namespace UrlShortener.Builders.Home
             List<UrlModel> recent = null;
             List<UrlModel> popular = null;
 
-            using (var session = _documentStore.OpenSession())
+            try
             {
-                recent = session.Query<UrlModel>().OrderByDescending(url => url.Created).Take(count).ToList();
-                popular = session.Query<UrlModel>().OrderByDescending(url => url.RequestCount).Take(count).ToList();
+                using (var session = _documentStore.OpenSession())
+                {
+                    recent = session.Query<UrlModel>().OrderByDescending(url => url.Created).Take(count).ToList();
+                    popular = session.Query<UrlModel>().OrderByDescending(url => url.RequestCount).Take(count).ToList();
+                }
+            }
+            catch (Exception e)
+            {
             }
 
             var model = new IndexModel()
             {
-                RecentUrls = recent,
-                PopularUrls = popular
+                RecentUrls = recent ?? new List<UrlModel>() ,
+                PopularUrls = popular ?? new List<UrlModel>()
             };
 
             return model;

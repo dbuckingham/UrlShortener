@@ -31,7 +31,7 @@
     <div class="row">
         <div class="span3"></div>
         <div class="span9">
-            <button type="submit" class="btn">Create</button>        
+            <button type="submit" class="btn">Create</button>
         </div>
     </div>
 }
@@ -44,7 +44,26 @@
             {
                 <tr>
                     <td>@Html.DisplayFor(modelItem => item.Key)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Url)</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Url)
+
+                        @{
+                            bool isNew = false;
+                            TimeSpan age = DateTimeOffset.UtcNow - item.Created;
+
+                            if (age.TotalDays <= TimeSpan.FromDays(1).TotalDays)
+                            {
+                                isNew = true;
+                            }
+
+                            if (isNew)
+                            {
+                                <span class="label label-success">
+                                    New
+                                </span>
+                            }
+                        }
+                    </td>
                     <td>@Html.DisplayFor(modelItem => item.Created)</td>
                 </tr>
             }
@@ -66,5 +85,5 @@
 </div>
 
 @*@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}*@
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@

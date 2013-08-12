@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Delete All";
+}
+
+<h2>Delete All</h2>
+
+<h3>Are you sure you want to delete all Urls?</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="DeleteAll" class="btn" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}

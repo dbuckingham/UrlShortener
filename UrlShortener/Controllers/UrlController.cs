@@ -27,11 +27,18 @@ namespace UrlShortener.Controllers
         // GET: /Url/
         public ActionResult Index()
         {
+            RavenQueryStatistics statistics;
+
             try
             {
                 using (var session = _documentStore.OpenSession())
                 {
-                    var items = session.Query<UrlModel>().ToList().OrderBy(model => model.Key);
+                    var items = session.Query<UrlModel>()
+                        .Statistics(out statistics)
+                        .Customize(x => x.WaitForNonStaleResults(TimeSpan.FromSeconds(5)))
+                        .OrderBy(model => model.Key)
+                        .ToList();
+                    
                     return View("Index", items);
                 }
             }
@@ -214,6 +221,32 @@ namespace UrlShortener.Controllers
                 return RedirectToAction("Index");
             }
             catch
+            {
+                return View();
+            }
+        }
+
+        //
+        // GET: /Url/DeleteAll
+        public ActionResult DeleteAll()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Url/DeleteAll
+        [HttpPost, ActionName("DeleteAll")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DoDeleteAll()
+        {
+            try
+            {
+                _documentStore.DatabaseCommands.DeleteByIndex("UrlModels/ByKey",
+                    new IndexQuery { Query = "Title:UrlModels" });
+
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception)
             {
                 return View();
             }

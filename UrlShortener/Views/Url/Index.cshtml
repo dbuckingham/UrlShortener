@@ -7,7 +7,8 @@
 <h2>Urls</h2>
 
 <p>
-    @Html.ActionLink("New", "Create")
+    @Html.ActionLink("New", "Create") |
+    @Html.ActionLink("Delete All", "DeleteAll")
 </p>
 
 <table class="table">
@@ -25,9 +26,25 @@
     @foreach (var item in Model)
     {
         <tr>
-            @*<td>@Html.DisplayFor(modelItem=>item.Id)</td>*@
             <td>@Html.ActionLink(item.Key, "Index", "Go", new { key = item.Key }, null)</td>
-            <td><a href="@item.Url">@item.Url</a></td>
+            <td>
+                <a href="@item.Url">@item.Url</a>
+
+                @{
+                    bool isNew = false;
+                    TimeSpan age = DateTimeOffset.UtcNow - item.Created;
+
+                    if (age.TotalDays <= TimeSpan.FromDays(1).TotalDays)
+                    {
+                        isNew = true;
+                    }
+
+                    if (isNew)
+                    {
+                        <span class="label label-success">New</span>
+                    }
+                }
+            </td>
             <td>@Html.DisplayFor(modelItem => item.RequestCount)</td>
             <td>@Html.DisplayFor(modelItem => item.Created)</td>
             <td>@Html.DisplayFor(modelItem => item.Updated)</td>
