@@ -139,6 +139,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UrlShortenerControllerFactory.cs" />
     <Compile Include="Builders\Home\IndexModelBuilder.cs" />
+    <Compile Include="Builders\Url\IndexModelBuilder.cs" />
     <Compile Include="Controllers\GoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UrlController.cs" />
@@ -148,6 +149,7 @@
     </Compile>
     <Compile Include="Models\Home\IndexModel.cs" />
     <Compile Include="Models\UrlModel.cs" />
+    <Compile Include="Models\Url\IndexModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

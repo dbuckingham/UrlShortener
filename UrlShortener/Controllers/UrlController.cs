@@ -8,6 +8,7 @@ using Raven.Abstractions.Data;
 using Raven.Client;
 using Raven.Client.Document;
 using Raven.Json.Linq;
+using UrlShortener.Builders.Url;
 using UrlShortener.Models;
 
 namespace UrlShortener.Controllers
@@ -27,25 +28,30 @@ namespace UrlShortener.Controllers
         // GET: /Url/
         public ActionResult Index()
         {
-            RavenQueryStatistics statistics;
+            //RavenQueryStatistics statistics;
 
-            try
-            {
-                using (var session = _documentStore.OpenSession())
-                {
-                    var items = session.Query<UrlModel>()
-                        .Statistics(out statistics)
-                        .Customize(x => x.WaitForNonStaleResults(TimeSpan.FromSeconds(5)))
-                        .OrderBy(model => model.Key)
-                        .ToList();
+            //try
+            //{
+            //    using (var session = _documentStore.OpenSession())
+            //    {
+            //        var items = session.Query<UrlModel>()
+            //            .Statistics(out statistics)
+            //            .Customize(x => x.WaitForNonStaleResults(TimeSpan.FromSeconds(5)))
+            //            .OrderBy(model => model.Key)
+            //            .ToList();
                     
-                    return View("Index", items);
-                }
-            }
-            catch (Exception)
-            {
-                return View();
-            }
+            //        return View("Index", items);
+            //    }
+            //}
+            //catch (Exception)
+            //{
+            //    return View();
+            //}
+
+            IndexModelBuilder builder = new IndexModelBuilder(_documentStore);
+            var model = builder.Build();
+
+            return View(model);
         }
 
         //

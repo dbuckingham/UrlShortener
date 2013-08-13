@@ -1,4 +1,4 @@
-﻿@model IEnumerable<UrlShortener.Models.UrlModel>
+﻿@model UrlShortener.Models.Url.IndexModel
 
 @{
     ViewBag.Title = "Urls";
@@ -14,16 +14,16 @@
 <table class="table">
     <tr>
         @*<th>@Html.DisplayNameFor(model=>model.Id)</th>*@
-        <th>@Html.DisplayNameFor(model => model.Key)</th>
-        <th>@Html.DisplayNameFor(model => model.Url)</th>
-        <th>@Html.DisplayNameFor(model => model.RequestCount)</th>
-        <th>@Html.DisplayNameFor(model => model.Created)</th>
-        <th>@Html.DisplayNameFor(model => model.Updated)</th>
-        <th>@Html.DisplayNameFor(model => model.LastRequest)</th>
+        <th>@Html.DisplayNameFor(model => model.Urls.First().Key)</th>
+        <th>@Html.DisplayNameFor(model => model.Urls.First().Url)</th>
+        <th>@Html.DisplayNameFor(model => model.Urls.First().RequestCount)</th>
+        <th>@Html.DisplayNameFor(model => model.Urls.First().Created)</th>
+        <th>@Html.DisplayNameFor(model => model.Urls.First().Updated)</th>
+        <th>@Html.DisplayNameFor(model => model.Urls.First().LastRequest)</th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Urls)
     {
         <tr>
             <td>@Html.ActionLink(item.Key, "Index", "Go", new { key = item.Key }, null)</td>
@@ -31,18 +31,14 @@
                 <a href="@item.Url">@item.Url</a>
 
                 @{
-                    bool isNew = false;
-                    TimeSpan age = DateTimeOffset.UtcNow - item.Created;
+        TimeSpan age = DateTimeOffset.UtcNow - item.Created;
 
-                    if (age.TotalDays <= TimeSpan.FromDays(1).TotalDays)
-                    {
-                        isNew = true;
-                    }
+        bool isNew = (age.TotalDays <= TimeSpan.FromDays(1).TotalDays);
 
-                    if (isNew)
-                    {
-                        <span class="label label-success">New</span>
-                    }
+        if (isNew)
+        {
+            <span class="label label-success">New</span>
+        }
                 }
             </td>
             <td>@Html.DisplayFor(modelItem => item.RequestCount)</td>
@@ -57,4 +53,33 @@
         </tr>
     }
 
+</table>
+
+<h2>Statistics</h2>
+
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Statistics.IndexName)</th>
+        <td>@Html.DisplayFor(model => model.Statistics.IndexName)</td>
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Statistics.IndexTimestamp)</th>
+        <td>@Html.DisplayFor(model => model.Statistics.IndexTimestamp)</td>
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Statistics.DurationMilliseconds)</th>
+        <td>@Html.DisplayFor(model => model.Statistics.DurationMilliseconds)</td>
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Statistics.IsStale)</th>
+        <td>@Html.DisplayFor(model => model.Statistics.IsStale)</td>
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Statistics.Timestamp)</th>
+        <td>@Html.DisplayFor(model => model.Statistics.Timestamp)</td>
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Statistics.TotalResults)</th>
+        <td>@Html.DisplayFor(model => model.Statistics.TotalResults)</td>
+    </tr>
 </table>
