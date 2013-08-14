@@ -11,7 +11,7 @@ using UrlShortener.Models.Home;
 
 namespace UrlShortener.Controllers
 {
-    public class HomeController : Controller
+    public partial class HomeController : Controller
     {
         private readonly IDocumentStore _documentStore = null;
 
@@ -22,7 +22,7 @@ namespace UrlShortener.Controllers
             _documentStore = documentStore;
         }
 
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             var modelBuilder = new IndexModelBuilder(_documentStore);
             var model = modelBuilder.Build();

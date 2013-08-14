@@ -11,7 +11,7 @@
     </p>
 </div>
 
-@using (Html.BeginForm("Create", "Url", FormMethod.Post))
+@using (Html.BeginForm(MVC.Url.Create(), FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)

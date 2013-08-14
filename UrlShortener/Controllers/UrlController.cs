@@ -13,7 +13,7 @@ using UrlShortener.Models;
 
 namespace UrlShortener.Controllers
 {
-    public class UrlController : Controller
+    public partial class UrlController : Controller
     {
         private readonly IDocumentStore _documentStore = null;
 
@@ -26,7 +26,7 @@ namespace UrlShortener.Controllers
 
         //
         // GET: /Url/
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             IndexModelBuilder builder = new IndexModelBuilder(_documentStore);
             var model = builder.Build();
@@ -36,7 +36,7 @@ namespace UrlShortener.Controllers
 
         //
         // GET: /Url/Details/5
-        public ActionResult Details(string id)
+        public virtual ActionResult Details(string id)
         {
             try
             {
@@ -44,7 +44,7 @@ namespace UrlShortener.Controllers
                 {
                     var urlModel = session.Load<UrlModel>(id);
 
-                    return View("Details", urlModel);
+                    return View(Views.Details, urlModel);
                 }
             }
             catch (Exception)
@@ -55,7 +55,7 @@ namespace UrlShortener.Controllers
 
         //
         // GET: /Url/Create
-        public ActionResult Create()
+        public virtual ActionResult Create()
         {
             return View();
         }
@@ -64,7 +64,7 @@ namespace UrlShortener.Controllers
         // POST: /Url/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(UrlModel urlModel)
+        public virtual ActionResult Create(UrlModel urlModel)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace UrlShortener.Controllers
                     session.SaveChanges();
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction(MVC.Url.Index());
             }
             catch
             {
@@ -100,7 +100,7 @@ namespace UrlShortener.Controllers
 
         //
         // GET: /Url/Edit/5
-        public ActionResult Edit(string id)
+        public virtual ActionResult Edit(string id)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace UrlShortener.Controllers
                     urlModel = session.Load<UrlModel>(id);
                 }
 
-                return View("Edit", urlModel);
+                return View(Views.Edit, urlModel);
             }
             catch (Exception)
             {
@@ -122,7 +122,7 @@ namespace UrlShortener.Controllers
         //
         // POST: /Url/Edit/5
         [HttpPost]
-        public ActionResult Edit(string id, UrlModel urlModel)
+        public virtual ActionResult Edit(string id, UrlModel urlModel)
         {
             try
             {
@@ -153,7 +153,7 @@ namespace UrlShortener.Controllers
                         }
                     );
 
-                return RedirectToAction("Index");
+                return RedirectToAction(MVC.Url.Index());
             }
             catch
             {
@@ -163,7 +163,7 @@ namespace UrlShortener.Controllers
 
         //
         // GET: /Url/Delete/5
-        public ActionResult Delete(string id)
+        public virtual ActionResult Delete(string id)
         {
             UrlModel urlModel = null;
 
@@ -179,7 +179,7 @@ namespace UrlShortener.Controllers
                     return HttpNotFound();
                 }
 
-                return View("Delete", urlModel);
+                return View(Views.Delete, urlModel);
             }
             catch (Exception)
             {
@@ -193,7 +193,7 @@ namespace UrlShortener.Controllers
         // POST: /Url/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(UrlModel urlModel)
+        public virtual ActionResult Delete(UrlModel urlModel)
         {
             try
             {
@@ -204,7 +204,7 @@ namespace UrlShortener.Controllers
                     session.SaveChanges();
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction(MVC.Url.Index());
             }
             catch
             {
@@ -214,7 +214,7 @@ namespace UrlShortener.Controllers
 
         //
         // GET: /Url/DeleteAll
-        public ActionResult DeleteAll()
+        public virtual ActionResult DeleteAll()
         {
             return View();
         }
@@ -223,7 +223,7 @@ namespace UrlShortener.Controllers
         // POST: /Url/DeleteAll
         [HttpPost, ActionName("DeleteAll")]
         [ValidateAntiForgeryToken]
-        public ActionResult DoDeleteAll()
+        public virtual ActionResult DoDeleteAll()
         {
             try
             {
@@ -231,7 +231,7 @@ namespace UrlShortener.Controllers
                     new IndexQuery()
                     );
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(MVC.Home.Index());
             }
             catch (Exception)
             {

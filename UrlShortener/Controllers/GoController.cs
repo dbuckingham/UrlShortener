@@ -9,7 +9,7 @@ using UrlShortener.Models;
 
 namespace UrlShortener.Controllers
 {
-    public class GoController : Controller
+    public partial class GoController : Controller
     {
         private readonly IDocumentStore _documentStore = null;
 
@@ -22,7 +22,7 @@ namespace UrlShortener.Controllers
 
         //
         // GET: /Go/key
-        public ActionResult Index(string key)
+        public virtual ActionResult Index(string key)
         {
             try
             {
