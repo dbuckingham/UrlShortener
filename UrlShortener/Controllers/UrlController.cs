@@ -90,7 +90,7 @@ namespace UrlShortener.Controllers
                     session.SaveChanges();
                 }
 
-                return RedirectToAction(MVC.Url.Index());
+                return RedirectToAction(Actions.Index());
             }
             catch
             {
@@ -153,7 +153,7 @@ namespace UrlShortener.Controllers
                         }
                     );
 
-                return RedirectToAction(MVC.Url.Index());
+                return RedirectToAction(Actions.Index());
             }
             catch
             {
@@ -204,7 +204,7 @@ namespace UrlShortener.Controllers
                     session.SaveChanges();
                 }
 
-                return RedirectToAction(MVC.Url.Index());
+                return RedirectToAction(Actions.Index());
             }
             catch
             {
