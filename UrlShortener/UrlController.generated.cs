@@ -147,6 +147,7 @@ namespace UrlShortener.Controllers
                 public readonly string Details = "Details";
                 public readonly string Edit = "Edit";
                 public readonly string Index = "Index";
+                public readonly string NotFound = "NotFound";
             }
             public readonly string Create = "~/Views/Url/Create.cshtml";
             public readonly string Delete = "~/Views/Url/Delete.cshtml";
@@ -154,6 +155,7 @@ namespace UrlShortener.Controllers
             public readonly string Details = "~/Views/Url/Details.cshtml";
             public readonly string Edit = "~/Views/Url/Edit.cshtml";
             public readonly string Index = "~/Views/Url/Index.cshtml";
+            public readonly string NotFound = "~/Views/Url/NotFound.cshtml";
         }
     }
 
