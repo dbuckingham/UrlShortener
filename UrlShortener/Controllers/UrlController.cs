@@ -40,12 +40,19 @@ namespace UrlShortener.Controllers
         {
             try
             {
+                UrlModel urlModel = null;
+
                 using (var session = _documentStore.OpenSession())
                 {
-                    var urlModel = session.Load<UrlModel>(id);
-
-                    return View(Views.Details, urlModel);
+                    urlModel = session.Load<UrlModel>(id);
                 }
+
+                if (urlModel == null)
+                {
+                    return View(Views.NotFound);
+                }
+
+                return View(Views.Details, urlModel);
             }
             catch (Exception)
             {
@@ -90,7 +97,7 @@ namespace UrlShortener.Controllers
                     session.SaveChanges();
                 }
 
-                return RedirectToAction(MVC.Url.Index());
+                return RedirectToAction(Actions.Index());
             }
             catch
             {
@@ -109,6 +116,11 @@ namespace UrlShortener.Controllers
                 using (var session = _documentStore.OpenSession())
                 {
                     urlModel = session.Load<UrlModel>(id);
+                }
+
+                if (urlModel == null)
+                {
+                    return View(Views.NotFound);
                 }
 
                 return View(Views.Edit, urlModel);
@@ -153,7 +165,7 @@ namespace UrlShortener.Controllers
                         }
                     );
 
-                return RedirectToAction(MVC.Url.Index());
+                return RedirectToAction(Actions.Index());
             }
             catch
             {
@@ -204,7 +216,7 @@ namespace UrlShortener.Controllers
                     session.SaveChanges();
                 }
 
-                return RedirectToAction(MVC.Url.Index());
+                return RedirectToAction(Actions.Index());
             }
             catch
             {
