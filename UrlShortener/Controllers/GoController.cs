@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Raven.Client;
-using Raven.Client.Document;
-using UrlShortener.Models;
+using UrlShortener.Business.Domain;
 
 namespace UrlShortener.Controllers
 {

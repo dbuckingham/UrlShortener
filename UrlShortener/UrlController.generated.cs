@@ -192,9 +192,9 @@ namespace UrlShortener.Controllers
             return callInfo;
         }
 
-        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, UrlShortener.Models.UrlModel urlModel);
+        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, UrlShortener.Business.Domain.UrlModel urlModel);
 
-        public override System.Web.Mvc.ActionResult Create(UrlShortener.Models.UrlModel urlModel)
+        public override System.Web.Mvc.ActionResult Create(UrlShortener.Business.Domain.UrlModel urlModel)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Create);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "urlModel", urlModel);
@@ -212,9 +212,9 @@ namespace UrlShortener.Controllers
             return callInfo;
         }
 
-        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string id, UrlShortener.Models.UrlModel urlModel);
+        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string id, UrlShortener.Business.Domain.UrlModel urlModel);
 
-        public override System.Web.Mvc.ActionResult Edit(string id, UrlShortener.Models.UrlModel urlModel)
+        public override System.Web.Mvc.ActionResult Edit(string id, UrlShortener.Business.Domain.UrlModel urlModel)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
@@ -233,9 +233,9 @@ namespace UrlShortener.Controllers
             return callInfo;
         }
 
-        partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, UrlShortener.Models.UrlModel urlModel);
+        partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, UrlShortener.Business.Domain.UrlModel urlModel);
 
-        public override System.Web.Mvc.ActionResult Delete(UrlShortener.Models.UrlModel urlModel)
+        public override System.Web.Mvc.ActionResult Delete(UrlShortener.Business.Domain.UrlModel urlModel)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "urlModel", urlModel);

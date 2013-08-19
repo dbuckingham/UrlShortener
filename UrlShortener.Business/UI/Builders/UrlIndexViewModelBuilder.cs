@@ -1,25 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 using Raven.Client;
-using UrlShortener.Models;
-using UrlShortener.Models.Url;
+using UrlShortener.Business.Domain;
+using UrlShortener.Business.UI.Models;
 
-namespace UrlShortener.Builders.Url
+namespace UrlShortener.Business.UI.Builders
 {
-    public class IndexModelBuilder
+    public class UrlIndexViewModelBuilder
     {
         private IDocumentStore _documentStore = null;
 
-        public IndexModelBuilder(IDocumentStore documentStore)
+        public UrlIndexViewModelBuilder(IDocumentStore documentStore)
         {
             if (documentStore == null) throw new ArgumentNullException("documentStore");
 
             _documentStore = documentStore;
         }
 
-        public IndexModel Build()
+        public UrlIndexViewModel Build()
         {
             List<UrlModel> links = null;
             RavenQueryStatistics statistics = null;
@@ -41,7 +42,7 @@ namespace UrlShortener.Builders.Url
             {
             }
 
-            var model = new IndexModel()
+            var model = new UrlIndexViewModel()
             {
                 Urls = links ?? new List<UrlModel>(),
                 Statistics = statistics

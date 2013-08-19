@@ -1,15 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Web;
 using System.Web.Mvc;
 using Raven.Abstractions.Data;
 using Raven.Client;
-using Raven.Client.Document;
-using Raven.Json.Linq;
-using UrlShortener.Builders.Url;
-using UrlShortener.Models;
+using UrlShortener.Business.Domain;
+using UrlShortener.Business.UI.Builders;
 
 namespace UrlShortener.Controllers
 {
@@ -28,7 +23,7 @@ namespace UrlShortener.Controllers
         // GET: /Url/
         public virtual ActionResult Index()
         {
-            IndexModelBuilder builder = new IndexModelBuilder(_documentStore);
+            var builder = new UrlIndexViewModelBuilder(_documentStore);
             var model = builder.Build();
 
             return View(model);

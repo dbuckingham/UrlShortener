@@ -26,6 +26,9 @@ namespace UrlShortener
             ControllerBuilder.Current.SetControllerFactory(
                 new UrlShortenerControllerFactory()
                 );
+
+            // Register type mappings
+            MapperConfig.RegisterMappings();
         }
 
     }

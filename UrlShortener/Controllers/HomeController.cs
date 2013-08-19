@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Raven.Client;
-using Raven.Client.Document;
-using UrlShortener.Builders.Home;
-using UrlShortener.Models;
-using UrlShortener.Models.Home;
+using UrlShortener.Business.UI.Builders;
 
 namespace UrlShortener.Controllers
 {
@@ -24,7 +18,7 @@ namespace UrlShortener.Controllers
 
         public virtual ActionResult Index()
         {
-            var modelBuilder = new IndexModelBuilder(_documentStore);
+            var modelBuilder = new HomeIndexViewModelBuilder(_documentStore);
             var model = modelBuilder.Build();
 
             return View(model);
