@@ -111,7 +111,7 @@ namespace UrlShortener.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Create
         {
-            public readonly string urlModel = "urlModel";
+            public readonly string model = "model";
         }
         static readonly ActionParamsClass_Edit s_params_Edit = new ActionParamsClass_Edit();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -120,7 +120,7 @@ namespace UrlShortener.Controllers
         public class ActionParamsClass_Edit
         {
             public readonly string id = "id";
-            public readonly string urlModel = "urlModel";
+            public readonly string model = "model";
         }
         static readonly ActionParamsClass_Delete s_params_Delete = new ActionParamsClass_Delete();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -129,7 +129,7 @@ namespace UrlShortener.Controllers
         public class ActionParamsClass_Delete
         {
             public readonly string id = "id";
-            public readonly string urlModel = "urlModel";
+            public readonly string model = "model";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -192,13 +192,13 @@ namespace UrlShortener.Controllers
             return callInfo;
         }
 
-        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, UrlShortener.Business.Domain.UrlModel urlModel);
+        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, UrlShortener.Business.UI.Models.UrlCreateViewModel model);
 
-        public override System.Web.Mvc.ActionResult Create(UrlShortener.Business.Domain.UrlModel urlModel)
+        public override System.Web.Mvc.ActionResult Create(UrlShortener.Business.UI.Models.UrlCreateViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Create);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "urlModel", urlModel);
-            CreateOverride(callInfo, urlModel);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            CreateOverride(callInfo, model);
             return callInfo;
         }
 
@@ -212,14 +212,14 @@ namespace UrlShortener.Controllers
             return callInfo;
         }
 
-        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string id, UrlShortener.Business.Domain.UrlModel urlModel);
+        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string id, UrlShortener.Business.UI.Models.UrlEditViewModel model);
 
-        public override System.Web.Mvc.ActionResult Edit(string id, UrlShortener.Business.Domain.UrlModel urlModel)
+        public override System.Web.Mvc.ActionResult Edit(string id, UrlShortener.Business.UI.Models.UrlEditViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "urlModel", urlModel);
-            EditOverride(callInfo, id, urlModel);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            EditOverride(callInfo, id, model);
             return callInfo;
         }
 
@@ -233,13 +233,13 @@ namespace UrlShortener.Controllers
             return callInfo;
         }
 
-        partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, UrlShortener.Business.Domain.UrlModel urlModel);
+        partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, UrlShortener.Business.UI.Models.UrlDeleteViewModel model);
 
-        public override System.Web.Mvc.ActionResult Delete(UrlShortener.Business.Domain.UrlModel urlModel)
+        public override System.Web.Mvc.ActionResult Delete(UrlShortener.Business.UI.Models.UrlDeleteViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "urlModel", urlModel);
-            DeleteOverride(callInfo, urlModel);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            DeleteOverride(callInfo, model);
             return callInfo;
         }
 

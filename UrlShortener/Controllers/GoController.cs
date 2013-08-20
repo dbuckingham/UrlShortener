@@ -1,8 +1,11 @@
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using Raven.Client;
+using UrlShortener.Business;
 using UrlShortener.Business.Domain;
+using UrlShortener.Business.UI.Models;
 
 namespace UrlShortener.Controllers
 {
@@ -23,28 +26,28 @@ namespace UrlShortener.Controllers
         {
             try
             {
-                UrlModel urlModel = null;
+                ShortLink shortLink = null;
 
                 using (var session = _documentStore.OpenSession())
                 {
-                    var results = from urls in session.Query<UrlModel>()
+                    var results = from urls in session.Query<ShortLink>()
                                   where urls.Key == key
                                   select urls;
 
-                    urlModel = results.FirstOrDefault();
+                    shortLink = results.FirstOrDefault();
 
-                    if (urlModel != null)
+                    if (shortLink != null)
                     {
-                        urlModel.RequestCount++;
-                        urlModel.LastRequest = DateTimeOffset.UtcNow;
-                        session.Store(urlModel);
+                        shortLink.Request();
+
+                        session.Store(shortLink);
                         session.SaveChanges();
                     }
                 }
 
-                if (urlModel == null) return View();
+                if (shortLink == null) return View();
 
-                return Redirect(urlModel.Url.ToString());
+                return Redirect(shortLink.Url.ToString());
             }
             catch (Exception)
             {

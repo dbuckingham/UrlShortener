@@ -1,10 +1,13 @@
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using Raven.Abstractions.Data;
 using Raven.Client;
+using UrlShortener.Business;
 using UrlShortener.Business.Domain;
 using UrlShortener.Business.UI.Builders;
+using UrlShortener.Business.UI.Models;
 
 namespace UrlShortener.Controllers
 {
@@ -35,19 +38,21 @@ namespace UrlShortener.Controllers
         {
             try
             {
-                UrlModel urlModel = null;
+                ShortLink shortLink = null;
 
                 using (var session = _documentStore.OpenSession())
                 {
-                    urlModel = session.Load<UrlModel>(id);
+                    shortLink = session.Load<ShortLink>(id);
                 }
 
-                if (urlModel == null)
+                if (shortLink == null)
                 {
                     return View(Views.NotFound);
                 }
 
-                return View(Views.Details, urlModel);
+                var model = Mapper.Map<UrlDetailsViewModel>(shortLink);
+
+                return View(Views.Details, model);
             }
             catch (Exception)
             {
@@ -66,7 +71,7 @@ namespace UrlShortener.Controllers
         // POST: /Url/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult Create(UrlModel urlModel)
+        public virtual ActionResult Create(UrlCreateViewModel model)
         {
             try
             {
@@ -76,7 +81,7 @@ namespace UrlShortener.Controllers
                     //var results = from urls in session.Query<UrlModel>()
                     //              where urls.Key == urlModel.Key
                     //              select urls;
-                    var results = session.Query<UrlModel>().Where(url => url.Key == urlModel.Key);
+                    var results = session.Query<ShortLink>().Where(url => url.Key == model.Key);
 
                     var existingUrlModel = results.FirstOrDefault();
 
@@ -87,8 +92,10 @@ namespace UrlShortener.Controllers
                         return View();
                     }
 
-                    urlModel.Created = DateTimeOffset.UtcNow;
-                    session.Store(urlModel);
+                    var shortLink = Mapper.Map<ShortLink>(model);
+                    shortLink.Created = DateTimeOffset.UtcNow;
+
+                    session.Store(shortLink);
                     session.SaveChanges();
                 }
 
@@ -106,19 +113,21 @@ namespace UrlShortener.Controllers
         {
             try
             {
-                UrlModel urlModel = null;
+                ShortLink shortLink = null;
 
                 using (var session = _documentStore.OpenSession())
                 {
-                    urlModel = session.Load<UrlModel>(id);
+                    shortLink = session.Load<ShortLink>(id);
                 }
 
-                if (urlModel == null)
+                if (shortLink == null)
                 {
                     return View(Views.NotFound);
                 }
 
-                return View(Views.Edit, urlModel);
+                var model = Mapper.Map<UrlEditViewModel>(shortLink);
+
+                return View(Views.Edit, model);
             }
             catch (Exception)
             {
@@ -129,27 +138,27 @@ namespace UrlShortener.Controllers
         //
         // POST: /Url/Edit/5
         [HttpPost]
-        public virtual ActionResult Edit(string id, UrlModel urlModel)
+        public virtual ActionResult Edit(string id, UrlEditViewModel model)
         {
             try
             {
                 // TODO: Validate that the new key is not in use.
 
                 _documentStore.DatabaseCommands.Patch(
-                    urlModel.Id,
+                    model.Id,
                     new[]
                         {
                             new PatchRequest
                             {
                                 Type = PatchCommandType.Set,
                                 Name = "Key",
-                                Value = urlModel.Key
+                                Value = model.Key
                             },
                             new PatchRequest
                             {
                                 Type = PatchCommandType.Set,
                                 Name = "Url",
-                                Value = urlModel.Url.ToString()
+                                Value = model.Url.ToString()
                             },
                             new PatchRequest
                             {
@@ -172,21 +181,23 @@ namespace UrlShortener.Controllers
         // GET: /Url/Delete/5
         public virtual ActionResult Delete(string id)
         {
-            UrlModel urlModel = null;
+            ShortLink shortLink = null;
 
             try
             {
                 using (var session = _documentStore.OpenSession())
                 {
-                    urlModel = session.Load<UrlModel>(id);
+                    shortLink = session.Load<ShortLink>(id);
                 }
 
-                if (urlModel == null)
+                if (shortLink == null)
                 {
                     return HttpNotFound();
                 }
 
-                return View(Views.Delete, urlModel);
+                var model = Mapper.Map<UrlDeleteViewModel>(shortLink);
+
+                return View(Views.Delete, model);
             }
             catch (Exception)
             {
@@ -200,13 +211,13 @@ namespace UrlShortener.Controllers
         // POST: /Url/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult Delete(UrlModel urlModel)
+        public virtual ActionResult Delete(UrlDeleteViewModel model)
         {
             try
             {
                 using (var session = _documentStore.OpenSession())
                 {
-                    var item = session.Load<UrlModel>(urlModel.Id);
+                    var item = session.Load<ShortLink>(model.Id);
                     session.Delete(item);
                     session.SaveChanges();
                 }
@@ -232,9 +243,11 @@ namespace UrlShortener.Controllers
         [ValidateAntiForgeryToken]
         public virtual ActionResult DoDeleteAll()
         {
+            string indexName = "ShortLinks/ByKey";
+
             try
             {
-                _documentStore.DatabaseCommands.DeleteByIndex("Auto/UrlModels/ByKey",
+                _documentStore.DatabaseCommands.DeleteByIndex(indexName,
                     new IndexQuery()
                     );
 

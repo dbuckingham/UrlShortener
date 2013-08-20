@@ -22,14 +22,14 @@ namespace UrlShortener.Business.UI.Builders
 
         public UrlIndexViewModel Build()
         {
-            List<UrlModel> links = null;
+            List<ShortLink> links = null;
             RavenQueryStatistics statistics = null;
 
             try
             {
                 using (var session = _documentStore.OpenSession())
                 {
-                    var items = session.Query<UrlModel>()
+                    var items = session.Query<ShortLink>()
                         .Statistics(out statistics)
                         //.Customize(x => x.WaitForNonStaleResults(TimeSpan.FromSeconds(5)))
                         .OrderBy(url => url.Key)
@@ -44,7 +44,7 @@ namespace UrlShortener.Business.UI.Builders
 
             var model = new UrlIndexViewModel()
             {
-                Urls = links ?? new List<UrlModel>(),
+                Urls = links ?? new List<ShortLink>(),
                 Statistics = statistics
             };
 

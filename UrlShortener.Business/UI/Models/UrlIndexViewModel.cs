@@ -10,7 +10,7 @@ namespace UrlShortener.Business.UI.Models
 {
     public class UrlIndexViewModel
     {
-        public IEnumerable<UrlModel> Urls { get; set; }
+        public IEnumerable<ShortLink> Urls { get; set; }
         public RavenQueryStatistics Statistics { get; set; }
     }
 }
