@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Raven.Client;
 using UrlShortener.Business.Domain;
 using UrlShortener.Business.UI.Models;
@@ -22,31 +23,32 @@ namespace UrlShortener.Business.UI.Builders
 
         public UrlIndexViewModel Build()
         {
-            List<ShortLink> links = null;
+            IEnumerable<ShortLink> shortLinks = null;
             RavenQueryStatistics statistics = null;
+            UrlIndexViewModel model = null;
 
             try
             {
                 using (var session = _documentStore.OpenSession())
                 {
-                    var items = session.Query<ShortLink>()
+                    shortLinks = session.Query<ShortLink>()
                         .Statistics(out statistics)
                         //.Customize(x => x.WaitForNonStaleResults(TimeSpan.FromSeconds(5)))
                         .OrderBy(url => url.Key)
                         .ToList();
-
-                    links = items;
                 }
+
+                var urls = Mapper.Map<IEnumerable<ShortLinkDetails>>(shortLinks);
+
+                model = new UrlIndexViewModel()
+                {
+                    Urls = urls ?? new List<ShortLinkDetails>(),
+                    Statistics = statistics
+                };
             }
             catch (Exception)
             {
             }
-
-            var model = new UrlIndexViewModel()
-            {
-                Urls = links ?? new List<ShortLink>(),
-                Statistics = statistics
-            };
 
             return model;
         }

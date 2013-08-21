@@ -6,6 +6,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using UrlShortener.Business.Extensions;
+using UrlShortener.Business.Helpers;
 
 namespace UrlShortener.Business.UI.Models
 {
@@ -15,13 +16,11 @@ namespace UrlShortener.Business.UI.Models
         public Uri Url { get; set; }
         public DateTimeOffset Created { get; set; }
 
-        private readonly TimeSpan _maximumAge = TimeSpan.FromDays(1);
-
         public bool IsNew()
         {
             TimeSpan age = DateTimeOffset.UtcNow - Created;
 
-            if (age <= _maximumAge) return true;
+            if (age <= ConfigurationHelper.NewLinkMaximumAge) return true;
 
             return false;
         }

@@ -13,7 +13,6 @@
 
 <table class="table">
     <tr>
-        @*<th>@Html.DisplayNameFor(model=>model.Id)</th>*@
         <th>@Html.DisplayNameFor(model => model.Urls.First().Key)</th>
         <th>@Html.DisplayNameFor(model => model.Urls.First().Url)</th>
         <th>@Html.DisplayNameFor(model => model.Urls.First().RequestCount)</th>
@@ -31,20 +30,16 @@
                 <a href="@item.Url">@item.Url</a>
 
                 @{
-        TimeSpan age = DateTimeOffset.UtcNow - item.Created;
-
-        bool isNew = (age.TotalDays <= TimeSpan.FromDays(1).TotalDays);
-
-        if (isNew)
-        {
-            <span class="label label-success">New</span>
-        }
+                    if (item.IsNew())
+                    {
+                        <span class="label label-success">New</span>            
+                    }
                 }
             </td>
             <td>@Html.DisplayFor(modelItem => item.RequestCount)</td>
-            <td>@Html.DisplayFor(modelItem => item.Created)</td>
-            <td>@Html.DisplayFor(modelItem => item.Updated)</td>
-            <td>@Html.DisplayFor(modelItem => item.LastRequest)</td>
+            <td>@item.GetCreatedTimestamp()</td>
+            <td>@item.GetUpdatedTimestamp()</td>
+            <td>@item.GetLastRequestTimestamp()</td>
             <td>
                 @Html.ActionLink("Edit", MVC.Url.Edit(item.Id)) | 
                 @Html.ActionLink("Details", MVC.Url.Details(item.Id)) | 

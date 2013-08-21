@@ -33,23 +33,26 @@ namespace UrlShortener.Business.UI.Builders
 
             try
             {
+                IEnumerable<ShortLink> latestLinks = null;
+                IEnumerable<ShortLink> popularLinks = null;
+
                 using (var session = _documentStore.OpenSession())
                 {
-                    var latestLinks = 
+                    latestLinks = 
                         session.Query<ShortLink>()
                             .OrderByDescending(link => link.Created)
                             .Take(NewLinksCount)
                             .ToList();
 
-                    var popularLinks =
+                    popularLinks =
                         session.Query<ShortLink>()
                             .OrderByDescending(link => link.RequestCount)
                             .Take(PopularLinksCount)
                             .ToList();
-
-                    model.NewLinks = Mapper.Map<IEnumerable<ShortLink>, IEnumerable<NewShortLink>>(latestLinks);
-                    model.PopularLinks = Mapper.Map<IEnumerable<ShortLink>, IEnumerable<PopularShortLink>>(popularLinks);
                 }
+
+                model.NewLinks = Mapper.Map<IEnumerable<ShortLink>, IEnumerable<NewShortLink>>(latestLinks);
+                model.PopularLinks = Mapper.Map<IEnumerable<ShortLink>, IEnumerable<PopularShortLink>>(popularLinks);
             }
             catch (Exception)
             {

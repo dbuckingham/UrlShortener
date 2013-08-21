@@ -17,6 +17,7 @@ namespace UrlShortener.Business.Mapping
             // Index
             Mapper.CreateMap<ShortLink, NewShortLink>();
             Mapper.CreateMap<ShortLink, PopularShortLink>();
+            Mapper.CreateMap<ShortLink, ShortLinkDetails>();
             // Create
             Mapper.CreateMap<UrlCreateViewModel, ShortLink>();
             // Delete
