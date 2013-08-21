@@ -20,13 +20,13 @@
         <dd>@Html.DisplayFor(model => model.RequestCount)</dd>
         
         <dt>@Html.DisplayNameFor(model => model.Created)</dt>
-        <dd>@Html.DisplayFor(model => model.Created)</dd>
+        <dd>@Model.GetCreatedTimestamp()</dd>
         
         <dt>@Html.DisplayNameFor(model => model.Updated)</dt>
-        <dd>@Html.DisplayFor(model => model.Updated)</dd>
+        <dd>@Model.GetUpdatedTimestamp()</dd>
         
         <dt>@Html.DisplayNameFor(model => model.LastRequest)</dt>
-            <dd>@Html.DisplayFor(model => model.LastRequest)</dd>
+        <dd>@Model.GetLastRequestTimestamp()</dd>
     </dl>
 </fieldset>
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using UrlShortener.Business.Domain;
 using UrlShortener.Business.UI.Models;
 
 namespace UrlShortener.Business.Mapping

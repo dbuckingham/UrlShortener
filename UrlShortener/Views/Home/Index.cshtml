@@ -48,15 +48,7 @@
                         @Html.DisplayFor(modelItem => item.Url)
 
                         @{
-                            bool isNew = false;
-                            TimeSpan age = DateTimeOffset.UtcNow - item.Created;
-
-                            if (age.TotalDays <= TimeSpan.FromDays(1).TotalDays)
-                            {
-                                isNew = true;
-                            }
-
-                            if (isNew)
+                            if (item.IsNew())
                             {
                                 <span class="label label-success">
                                     New
@@ -64,7 +56,7 @@
                             }
                         }
                     </td>
-                    <td>@Html.DisplayFor(modelItem => item.Created)</td>
+                    <td>@item.GetCreatedTimestamp()</td>
                 </tr>
             }
         </table>

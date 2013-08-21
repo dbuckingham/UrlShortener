@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UrlShortener.Business
+namespace UrlShortener.Business.Domain
 {
     public class ShortLink
     {
