@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using UrlShortener.Business.Extensions;
 
 namespace UrlShortener.Business.UI.Models
 {
@@ -27,9 +28,7 @@ namespace UrlShortener.Business.UI.Models
 
         public string GetCreatedTimestamp()
         {
-            if (Created > DateTimeOffset.MinValue) return Created.ToString("G");
-
-            return "N/A";
+            return Created.ToFriendlyString();
         }
     }
 }

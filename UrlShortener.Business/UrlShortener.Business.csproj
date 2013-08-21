@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\ShortLink.cs" />
+    <Compile Include="Extensions\DateTimeOffsetExtensionMethods.cs" />
     <Compile Include="Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\Builders\HomeIndexViewModelBuilder.cs" />

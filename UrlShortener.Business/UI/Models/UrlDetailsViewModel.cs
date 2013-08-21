@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UrlShortener.Business.Extensions;
 
 namespace UrlShortener.Business.UI.Models
 {
@@ -24,28 +25,17 @@ namespace UrlShortener.Business.UI.Models
 
         public string GetCreatedTimestamp()
         {
-            return FormatTimestampForView(Created);
+            return Created.ToFriendlyString();
         }
 
         public string GetUpdatedTimestamp()
         {
-            return FormatTimestampForView(Updated);
+            return Updated.ToFriendlyString();
         }
 
         public string GetLastRequestTimestamp()
         {
-            return FormatTimestampForView(LastRequest);
+            return LastRequest.ToFriendlyString();
         }
-
-        #region Private Methods
-
-        private string FormatTimestampForView(DateTimeOffset timestamp)
-        {
-            if (timestamp > DateTimeOffset.MinValue) return timestamp.ToString("G");
-
-            return "N/A";
-        }
-
-        #endregion Private Methods
     }
 }
